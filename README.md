@@ -11,7 +11,7 @@ git clone git://github.com/yakischloba/ruby-cisco.git
 cd ruby-cisco
 gem build cisco.gemspec
 sudo gem install cisco-<version>.gem
-``
+```
 
 ## Usage
 
