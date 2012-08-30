@@ -1,9 +1,10 @@
+# encoding: utf-8
+
 require 'net/telnet'
 
 module Cisco
 
   class Telnet
-    
     include Common
 
     def initialize(options)
@@ -11,7 +12,7 @@ module Cisco
       @password = options[:password]
       @prompt  = options[:prompt]
       @targs   = options[:directargs] || ["Host" => @host]
-		  @pwprompt = options[:pwprompt] || "Password:"
+      @pwprompt = options[:pwprompt] || "Password:"
       @cmdbuf, @extra_init = [], []
     end
 
@@ -25,14 +26,14 @@ module Cisco
         send_next
         @results << @telnet.waitfor(@prompt) {|x| @outblock.call(x) if @outblock}
       end
-      
+
       @results
     end
 
     def cmd(cmd, prompt = nil, &block)
       @cmdbuf << [cmd, prompt, block]
     end
-    
+
     def close
       10.times do
         chn.send_data("exit\n") while @telnet.sock
@@ -48,7 +49,7 @@ module Cisco
       @results << @telnet.waitfor(@prompt)
     end
 
-    def	send_next
+    def send_next
       cmd = @cmdbuf.shift
       @prompt = Regexp.new(cmd[1]) if cmd[1]
       @outblock = cmd[2] if cmd[2]

@@ -1,10 +1,11 @@
+# encoding: utf-8
+
 module Cisco
 
   class CiscoError < StandardError
   end
 
   class Base
-
     attr_reader :transport
 
     def initialize(options)
@@ -19,11 +20,11 @@ module Cisco
     def host
       @transport.host
     end
-    
+
     def password
       @transport.password
     end
-    
+
     def prompt
       @transport.prompt
     end
